@@ -4,8 +4,8 @@
 # clashmac_mihomo-kernel_helper
 #
 # Author: Kuochiang Lu
-# Version: 1.0.0
-# Last Updated: 2026-01-21
+# Version: v1.1.0
+# Last Updated: 2026-01-24
 #
 # 描述：
 #   ClashMac mihomo Kernel Helper 是一个专注于 mihomo 内核下载、管理、切换 的命令行助手，
@@ -22,7 +22,7 @@
 #   ./clashmac_mihomo_kernel_helper.sh help
 #
 
-SCRIPT_VERSION="v1.0.0"
+SCRIPT_VERSION="v1.1.0"
 
 # ========================
 # 配置路径和默认变量
@@ -115,7 +115,7 @@ show_status() {
 switch_core() {
     if [ -z "$1" ]; then
         echo -e "${RED}[错误] switch 必须指定版本${NC}"
-        exit 1
+        return 1
     fi
 
     INPUT="$1"
@@ -138,13 +138,13 @@ switch_core() {
         TARGET_BACKUP=$(ls -1 "$CLASHMAC_CORE_DIR"/mihomo.backup.* 2>/dev/null | grep "$INPUT")
     else
         echo -e "${RED}[错误] 只支持版本号或时间戳格式${NC}"
-        exit 1
+        return 1
     fi
 
     # 验证备份文件存在且大小合理
     if [ ! -f "$TARGET_BACKUP" ] || [ ! -s "$TARGET_BACKUP" ]; then
         echo -e "${RED}[错误] 未找到有效备份文件: $TARGET_BACKUP${NC}"
-        exit 1
+        return 1
     fi
     echo "[信息] 匹配到备份文件: $TARGET_BACKUP"
 
@@ -157,8 +157,8 @@ switch_core() {
 
     # 替换核心
     TMP_CORE="${ACTIVE_CORE}.tmp"
-    cp "$TARGET_BACKUP" "$TMP_CORE" || { echo "[错误] 复制备份失败"; rm -f "$TMP_ROLLBACK"; exit 1; }
-    mv -f "$TMP_CORE" "$ACTIVE_CORE" || { echo "[错误] 替换核心失败"; cp "$TMP_ROLLBACK" "$ACTIVE_CORE"; exit 1; }
+    cp "$TARGET_BACKUP" "$TMP_CORE" || { echo "[错误] 复制备份失败"; rm -f "$TMP_ROLLBACK"; return 1; }
+    mv -f "$TMP_CORE" "$ACTIVE_CORE" || { echo "[错误] 替换核心失败"; cp "$TMP_ROLLBACK" "$ACTIVE_CORE"; return 1; }
     chmod +x "$ACTIVE_CORE"
 
     echo -e "${GREEN}[完成] 核心切换成功${NC}"
@@ -294,7 +294,7 @@ show_version() {
     echo -e "${GREEN}[结果] 当前脚本版本: $SCRIPT_VERSION"
 }
 
-shwo_help() {
+show_help() {
     echo -e "${BLUE}显示帮助信息${NC}\n"
     echo "clashmac_mihomo-kernel_helper - ClashMac mihomo 核心助手脚本${NC}\n"
     echo "用法: $0 <命令>"
@@ -333,9 +333,9 @@ health_check_core() {
     if [ ! -d "$CLASHMAC_CORE_DIR" ]; then
         echo -e "${RED}[错误] 未找到 ClashMac Core 目录:${NC}"
         echo "  $CLASHMAC_CORE_DIR"
-        exit 1
+        return 1
     fi
-    cd "$CLASHMAC_CORE_DIR" || { echo -e "${RED}[错误] 进入核心目录失败${NC}"; exit 1; }
+    cd "$CLASHMAC_CORE_DIR" || { echo -e "${RED}[错误] 进入核心目录失败${NC}"; return 1; }
     echo -e "${GREEN}[成功] 当前目录: $CLASHMAC_CORE_DIR${NC}"
 
     echo -e "${BLUE}========== ClashMac 内核健康检查 ==========${NC}"
@@ -405,7 +405,7 @@ health_check_core() {
 health_check_core
 COMMAND="$1"
 case "$COMMAND" in
-    help|--help) shwo_help ;;
+    help|--help) show_help ;;
     version|-v) show_version ;;
     install|-i) shift; install_core "$@" ;;
     list|-ls) list_backups ;;
