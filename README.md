@@ -43,6 +43,16 @@ ClashMac mihomo Kernel Helper 是一个专注于 **mihomo 内核下载、管理�
 
 ## 🚀 快速开始
 
+⚡️一键安装
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lukuochiang/clashmac-mihomo-kernel-helper/refs/heads/main/scripts/clashmac_mihomo-kernel_helper.sh \
+  -o /tmp/mihomo.sh \
+&& chmod +x /tmp/mihomo.sh \
+&& /tmp/mihomo.sh install
+```
+
+
 1. 克隆仓库  
 
 ```bash
