@@ -218,12 +218,12 @@ install_core() {
         GITHUB_USER="MetaCubeX"
         echo -e "${BLUE}[信息] 已指定版本:${NC} $VERSION_BRANCH"
     else
-        echo -e "${BLUE}[步骤] 选择 GitHub 用户下载核心: ${NC}\n"
+        echo -e "${BLUE}[步骤] 选择 GitHub 用户下载核心: ${NC}"
         for i in "${!GITHUB_USERS[@]}"; do
             if [ "${GITHUB_USERS[$i]}" = "vernesong" ]; then
-                echo "  $((i+1))) ${GITHUB_USERS[$i]} - Smart版本\n"
+                echo "  $((i+1))) ${GITHUB_USERS[$i]} - Smart版本"
             elif [ "${GITHUB_USERS[$i]}" = "MetaCubeX" ]; then
-                echo "  $((i+1))) ${GITHUB_USERS[$i]} - 官方原版\n"
+                echo "  $((i+1))) ${GITHUB_USERS[$i]} - 官方原版"
             else
                 echo "  $((i+1))) ${GITHUB_USERS[$i]}"
             fi
