@@ -265,7 +265,10 @@ install_core() {
     DOWNLOAD_URL="${BASE_DOWNLOAD_URL}/${VERSION}.gz"
     echo "[信息] 下载链接: $DOWNLOAD_URL"
 
-    # ---------- 5. 下载并写入核心 ----------
+    # ---------- 5. 切换到核心目录 ----------
+    cd "$CLASHMAC_CORE_DIR" || { echo -e "${RED}[错误] 进入核心目录失败${NC}"; return 1; }
+
+    # ---------- 6. 下载并写入核心 ----------
     echo "下载并解压核心到 $ACTIVE_CORE ..."
     for i in {1..3}; do
         curl -fL "$DOWNLOAD_URL" | gunzip > "$ACTIVE_CORE" && break
@@ -276,7 +279,7 @@ install_core() {
     chmod +x "$ACTIVE_CORE"
     echo -e "${GREEN}[信息] 当前核心已写入 -> $(basename "$ACTIVE_CORE")${NC}"
 
-    # ---------- 6. 生成备份（首次安装也备份） ----------
+    # ---------- 7. 生成备份（首次安装也备份） ----------
     TIMESTAMP=$(date +%Y%m%d_%H%M%S)
     BACKUP_FILE="$CLASHMAC_CORE_DIR/mihomo.backup.${VERSION}.${TIMESTAMP}"
     cp -f "$ACTIVE_CORE" "$BACKUP_FILE"
