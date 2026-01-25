@@ -52,6 +52,20 @@ curl -fsSL https://raw.githubusercontent.com/lukuochiang/clashmac-mihomo-kernel-
 && /tmp/mihomo.sh install
 ```
 
+```bash
+curl -fsSL https://raw.githubusercontent.com/lukuochiang/clashmac-mihomo-kernel-helper/refs/heads/main/scripts/clashmac_mihomo-kernel_installer.sh \
+  -o /tmp/mihomo.sh \
+&& chmod +x /tmp/mihomo.sh \
+&& /tmp/mihomo.sh install
+```
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lukuochiang/clashmac-mihomo-kernel-helper/refs/heads/main/scripts/clashmac_mihomo-kernel_tui.sh \
+  -o /tmp/mihomo.sh \
+&& chmod +x /tmp/mihomo.sh \
+&& /tmp/mihomo.sh install
+```
+
 
 1. 克隆仓库  
 
