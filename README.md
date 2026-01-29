@@ -1,4 +1,6 @@
-
+<div align="center">
+  <img src="assets/logo.png" alt="ClashFox Logo" width="200">
+</div>
 # 📦 ClashMac 专用 mihomo 内核版本管理工具
 
 ClashMac mihomo Kernel Helper 是一个专注于 **mihomo 内核下载、管理、切换** 的命令行助手，避免重复下载、支持按时间戳管理备份，与 GUI 完全分离职责。
