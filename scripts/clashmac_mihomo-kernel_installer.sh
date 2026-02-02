@@ -1,21 +1,44 @@
 #!/usr/bin/env bash
 
-# Minimal script containing only install_core() function and its dependencies
-#
+###############################################################################
 # ClashMac Mihomo Kernel Installer
 #
-# Author: Kuochiang Lu
-# Version: 1.3.3
-# Last Updated: 2026-02-02
+# 项目概述：
+#   这是一个轻量级的 ClashMac mihomo 内核安装脚本，专注于提供核心安装功能
+#   与完整版本的 Helper 工具相比，该脚本仅包含 install_core() 函数及其必要依赖
 #
-# 描述：
-#   ClashMac mihomo 内核安装器，专注于核心安装功能
-#   支持多个 GitHub 源，自动检测系统架构，生成备份
+# 作者信息：
+#   Author: Kuochiang Lu
+#   Version: 1.3.3
+#   Last Updated: 2026-02-02
 #
-# 依赖：
-#   - curl (用于下载文件)
-#   - tar (解压文件)
-#   - grep, awk, sed 等基础命令行工具
+# 核心功能：
+#   ✅ 多源安装支持：可从多个 GitHub 源（如 MetaCubeX、vernesong）下载内核
+#   ✅ 智能架构适配：自动检测系统架构 (arm64/amd64) 并下载对应版本
+#   ✅ 完整备份机制：安装前自动备份现有内核，保障系统安全
+#   ✅ 版本灵活选择：支持安装指定版本或最新版本
+#
+# 系统依赖：
+#   - curl          # 用于从 GitHub 下载内核文件
+#   - tar           # 用于解压下载的内核包
+#   - grep/awk/sed  # 用于文本处理和信息提取
+#   - bash          # 脚本运行环境（需 bash 4.0+）
+#
+# 典型应用场景：
+#   - 集成到其他自动化脚本中
+#   - 需要轻量级内核安装解决方案
+#   - 仅需安装功能，无需完整管理工具
+#
+# 使用说明：
+#   该脚本设计为被其他脚本调用，主要接口为 install_core() 函数
+#   可通过传入参数指定要安装的内核版本
+#
+# 注意事项：
+#   - 请确保脚本具有执行权限 (chmod +x script.sh)
+#   - 运行脚本可能需要管理员权限
+#   - 首次使用前建议确认 ClashMac 应用已正确安装
+###############################################################################
+
 SCRIPT_NAME="ClashMac-Mihomo-Kernel-Installer"
 SCRIPT_VERSION="1.3.3" # 脚本版本
 
